@@ -1,0 +1,14 @@
+{
+    "db": {
+      "user": "postgres",
+      "host": "localhost",
+      "database": "calorie_tracker",
+      "password": "Munni@1598",
+      "port": 5432
+    },
+
+    "jwtSecret": "b065884f6441b873ef96a961918f01938f7b4be487cef19a2c68680d3479c22402080f413a4e772a225e6a6b19a04332c58351b421f7b346eb5c7fac8e0d742a"
+
+
+  }
+  
