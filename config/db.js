@@ -1,6 +1,9 @@
 const { Pool } = require('pg');
 const config = require('config');
 
+// Import pg-promise
+const pgp = require('pg-promise')();
+
 const dbConfig = config.get('db');
 
 const pool = new Pool(dbConfig);
@@ -16,8 +19,6 @@ module.exports = async function connectDB() {
 };
 
 
-// Import pg-promise
-const pgp = require('pg-promise')();
 
 // Create a new database instance
 const db = pgp(dbConfig);

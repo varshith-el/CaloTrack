@@ -1,4 +1,8 @@
 const db = require('../config/db');
+const calculateDailyCalories = require('../utils/calculateDailyCalories');
+
+//import calculateDailyCalories from './calculateDailyCalories';
+
 
 module.exports = {
   create: (name, email, password) => {
@@ -8,7 +12,7 @@ module.exports = {
     );
   },
   findById: (id) => {
-    return db.one('SELECT * FROM Users WHERE id = $1', [id]);
+    return db.one('SELECT * FROM Users WHERE user_id = $1', [id]);
   },
   findByEmail: (email) => {
     return db.one('SELECT * FROM Users WHERE email = $1', [email]);
@@ -19,5 +23,15 @@ module.exports = {
       [name, email, password, date, goal, targetCalories, id]
     );
   },
-  // Other methods for deleting, etc...
+
+  // Other methods for update the user info...
+  update: async (user_id, user_name, height,age, weight, gender, goal) => {
+    // Calculate the target calories
+    const target_calories = calculateDailyCalories(height, weight, gender, goal);
+
+    return db.none(
+      'UPDATE Users SET user_name = $1, height = $2, weight = $3, gender = $4, goal = $5, target_calories = $6, age = $7 WHERE user_id = $8',
+      [user_name, height, weight, gender, goal, target_calories,age, user_id]
+    );
+  }
 };
