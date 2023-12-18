@@ -35,10 +35,10 @@ app.use(express.json({ extended: false }));
 // Define routes
 app.use('/api/users', require('./routes/api/users')); //register a user/update user
 app.use('/api/auth', require('./routes/api/auth')); //login a user
-app.use('api/homepage',require('./routes/homepage'));
-app.use('/api/foods', require('./routes/api/foods')); //fetch list of foods and calories
-app.use('/api/dailylogs', require('./routes/api/dailylogs')); // log the food intake for date
-app.use('/api/exercises', require('./routes/api/exercises')); //fetch list of exercises and calories
+app.use('api/homepage',require('./routes/homepage')); //fetch list of foods and calories 
+app.use('/api/foods', require('./routes/api/food')); //log the food intake for date
+app.use('/api/foodlog', require('./routes/api/foodlog')); // 
+app.use('/api/exerciselog', require('./routes/api/exercises')); //fetch list of exercises and calories
 app.use('/api/exerciselogs', require('./routes/api/exerciselogs')); //log the exercise for date
 
 //const PORT = process.env.PORT || 5000;
