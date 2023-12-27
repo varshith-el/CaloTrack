@@ -2,16 +2,13 @@
 //export default function calculateDailyCalories(height, weight, gender, age, activityLevel, goal)
 
 module.exports = function calculateDailyCalories(height, weight, gender, age, activityLevel, goal) {
-    // Convert height from cm to m and weight from kg to lbs
-    const heightInM = height / 100;
-    const weightInLbs = weight * 2.20462;
   
     // Calculate BMR using the Mifflin-St Jeor Equation
     let bmr;
-    if (gender === 'M') {
-      bmr = 10 * weight + 6.25 * heightInM - 5 * age + 5;
+    if (gender === 'Male') {
+      bmr = 10 * weight + 6.25 * height - 5 * age + 5;
     } else {
-      bmr = 10 * weight + 6.25 * heightInM - 5 * age - 161;
+      bmr = 10 * weight + 6.25 * height - 5 * age - 161;
     }
   
     // Adjust BMR based on activity level

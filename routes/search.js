@@ -1,10 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 const config = require('config');
 const uri = config.get('calorieNinjasURI');
 const apiKey = config.get('calorieNinjasAPIKey');
 
+let fetch;
+
+import('node-fetch').then(nodeFetch => {
+    fetch = nodeFetch;
+});
 
 // Search food,take req param and call external api.
 router.get('food/:food', async (req, res) => {
@@ -23,6 +28,7 @@ router.get('food/:food', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
 
 // Search exercise and call external API
 // TO BE IMPLEMENTED...

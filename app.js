@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.port || 5000;
+const PORT = process.env.port || 5000;
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //});
 
 const { connectDB } = require('./config/db');
-const express = require('express');
+//const express = require('express');
 //const connectDB = require('./config/db');
 const cors = require('cors');
 
@@ -33,13 +33,17 @@ app.use(cors());
 app.use(express.json({ extended: false }));
 
 // Define routes
-app.use('/api/users', require('./routes/api/users')); //register a user/update user
-app.use('/api/auth', require('./routes/api/auth')); //login a user
+app.use('/api/users', require('./routes/users')); //register a user/update user
+app.use('/api/auth', require('./routes/login')); //login a user
 app.use('api/homepage',require('./routes/homepage')); //fetch list of foods and calories 
-app.use('/api/foods', require('./routes/api/food')); //log the food intake for date
-app.use('/api/foodlog', require('./routes/api/foodlog')); // 
-app.use('/api/exerciselog', require('./routes/api/exercises')); //fetch list of exercises and calories
-app.use('/api/exerciselogs', require('./routes/api/exerciselogs')); //log the exercise for date
+app.use('/api/foods', require('./routes/food')); //log/fetch the food intake for date
+app.use('/api/search', require('./routes/search')); // 
+
+app.get('/test',(req, res) => {
+  res.send("Hello, this is Home Page.");
+});
+
+//app.use('/api/exercises', require('./routes/exercises')); //fetch list of exercises and calories
 
 //const PORT = process.env.PORT || 5000;
 //console.log(require('crypto').randomBytes(64).toString('hex'));

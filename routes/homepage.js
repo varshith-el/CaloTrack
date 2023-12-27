@@ -24,11 +24,11 @@ router.get('/:user_id', auth, async (req, res) => {
 
     // Retrieve food and exercise logs for the user for today
     const foodLogs = await Food_Log.findByUserIdAndDate(req.params.user_id, todayStr);
-    const exerciseLogs = await Exercise_Log.findByUserIdAndDate(req.params.user_id, todayStr);
+    //const exerciseLogs = await Exercise_Log.findByUserIdAndDate(req.params.user_id, todayStr);
 
     // Calculate total consumed and burned calories
     const consumedCalories = foodLogs.reduce((total, log) => total + log.calories, 0);
-    const burnedCalories = exerciseLogs.reduce((total, log) => total + log.calories, 0);
+    //const burnedCalories = exerciseLogs.reduce((total, log) => total + log.calories, 0);
 
     // Prepare the data to send to the client
     const data = {
