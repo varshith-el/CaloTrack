@@ -9,6 +9,7 @@ const Exercise_Log = require('../models/ExerciseLogs');
 router.get('/:user_id', auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.user_id);
+    console.log(user)
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
@@ -24,6 +25,7 @@ router.get('/:user_id', auth, async (req, res) => {
 
     // Retrieve food and exercise logs for the user for today
     const foodLogs = await Food_Log.findByUserIdAndDate(req.params.user_id, todayStr);
+    console.log(foodLogs)
     //const exerciseLogs = await Exercise_Log.findByUserIdAndDate(req.params.user_id, todayStr);
 
     // Calculate total consumed and burned calories
@@ -36,7 +38,7 @@ router.get('/:user_id', auth, async (req, res) => {
       bmi,
       totalCalories: user.target_calories,
       consumedCalories,
-      burnedCalories,
+      //burnedCalories,
     };
 
     res.json(data);

@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //  console.log(`Server is running at http://localhost:${port}`);
 //});
 
-const { connectDB } = require('./config/db');
+//const { connectDB } = require('./config/db');
 //const express = require('express');
 //const connectDB = require('./config/db');
 const cors = require('cors');
@@ -26,7 +26,7 @@ const cors = require('cors');
 //const app = express();
 
 // Connect to the database
-connectDB();
+//connectDB();
 
 // Initialize middleware
 app.use(cors());
@@ -34,8 +34,8 @@ app.use(express.json({ extended: false }));
 
 // Define routes
 app.use('/api/users', require('./routes/users')); //register a user/update user
-app.use('/api/auth', require('./routes/login')); //login a user
-app.use('api/homepage',require('./routes/homepage')); //fetch list of foods and calories 
+app.use('/api/login', require('./routes/login')); //login a user
+app.use('/api/homepage', require('./routes/homepage')); //fetch list of foods and calories 
 app.use('/api/foods', require('./routes/food')); //log/fetch the food intake for date
 app.use('/api/search', require('./routes/search')); // 
 

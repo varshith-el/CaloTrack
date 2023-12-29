@@ -2,16 +2,22 @@ const db = require('../config/db');
 
 module.exports = {
 
-  findByUserIdAndDate: (user_id, date) => {
-    return db.any('SELECT * FROM FoodLogs WHERE user_id = $1 AND date = $2', [user_id, date]);
+  findByUserIdAndDate: async (user_id, date) => {
+    const foods = await db.manyOrNone(
+    `SELECT FoodItems.* FROM Meals
+     INNER JOIN FoodItems ON Meals.MealID = FoodItems.MealID
+     WHERE Meals.Date = $2 AND Meals.userid = $1`,
+    [user_id,date]
+  );
+  return foods;
   },
     //get fooditems on particular date 
-  getMealsByDate: async (date, userId) => {
-    const meals = await db.any(
+  getMealsByDate: async (date, user_id) => {
+    const meals = await db.manyOrNone(
       `SELECT * FROM Meals
        INNER JOIN FoodItems ON Meals.MealID = FoodItems.MealID
-       WHERE Meals.Date = $1 AND Meals.UserID = $2`,
-      [date, userId]
+       WHERE Meals.Date = $1 AND Meals.userid = $2`,
+      [date, user_id]
     );
     return meals;
   },

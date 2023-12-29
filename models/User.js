@@ -1,4 +1,4 @@
-const {db} = require('../config/db');
+const db = require('../config/db');
 const calculateDailyCalories = require('../utils/calculateDailyCalories');
 
 //import calculateDailyCalories from './calculateDailyCalories';
