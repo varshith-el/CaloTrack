@@ -3,9 +3,11 @@ const config = require('config');
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs');
-const User = require('../models/User'); // replace <path_to_your_user_model> with the actual path
+const User = require('../models/User');
+const lauth = require('../middleware/loggerauth')
 
-router.post('', async (req, res) => {
+
+router.post('', lauth,async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -33,7 +35,12 @@ router.post('', async (req, res) => {
       { expiresIn: 3600 },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        // Set the JWT in a cookie
+        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
+        // Set the username in a cookie
+        res.cookie('username', user.username, { httpOnly: true, secure: true, sameSite: 'strict' });
+        res.json({ msg: 'User logged in successfully' });
+        //res.json({ token });
       }
     );
   } catch (err) {

@@ -11,7 +11,10 @@
 
     
     "calorieNinjasURI": "https://api.calorieninjas.com/v1/nutrition?query=",
-    "calorieNinjasAPIKey": "YOUR_API_KEY"
+    "calorieNinjasAPIKey": "YOUR_API_KEY",
+
+    "caloriesburnedURI" : "https://api.api-ninjas.com/v1/caloriesburned?activity=",
+    "caloriesburnedKey": "YOUR_API_KEY"
 
   }
   

@@ -31,12 +31,12 @@ router.get('/:user_id', auth, async (req, res) => {
     // Calculate total consumed and burned calories
     const consumedCalories = foodLogs.reduce((total, log) => total + log.calories, 0);
     //const burnedCalories = exerciseLogs.reduce((total, log) => total + log.calories, 0);
-
+    console.log()
     // Prepare the data to send to the client
     const data = {
       date: new Date().toISOString().slice(0, 10), // Today's date in YYYY-MM-DD format
       bmi,
-      totalCalories: user.target_calories,
+      totalCalories: user.targetcalories,
       consumedCalories,
       //burnedCalories,
     };

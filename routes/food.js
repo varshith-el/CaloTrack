@@ -41,7 +41,7 @@ router.post('/', auth, [
     const { date, mealType, foodItems } = req.body;
 
     for (const foodItem of foodItems) {
-      await Food.addOrUpdateFoodItem(req.user.id, date, mealType, foodItem);
+      await Food.addOrUpdateFoodItem(req.user_id, date, mealType, foodItem);
     }
 
     res.json({ msg: 'Food items added or updated successfully' });

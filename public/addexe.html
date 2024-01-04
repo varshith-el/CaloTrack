@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Exercise</title>
+    <style>
+        #exercise-list {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #exercise-list th, #exercise-list td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .add-exercise-form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="add-exercise">
+        <h2 id="date"></h2>
+        <table id="exercise-list">
+            <tr>
+                <th>Exercise</th>
+                <th>Calories Burnt per 30 mins</th>
+                <th>Minutes</th>
+                <th></th>
+            </tr>
+        </table>
+        <div class="add-exercise-form">
+            <p id="add-exercise-text"> Feel free to add if you don't find any exercise in the list</p>
+            <input type="text" id="exercise-name" placeholder="Exercise Name">
+            <input type="number" id="exercise-calories" class="calories-input" placeholder="Calories Burnt per 30 mins">
+            <input type="number" id="exercise-minutes" class="minutes-input" value="30">
+            <button class="add-exercise">Add Exercise</button>
+        </div>
+    </div>
+    <script>
+        var exerciseItems = [
+            { name: 'Running', calories: 300 },
+            { name: 'Cycling', calories: 260 },
+            { name: 'Swimming', calories: 330 },
+            { name: 'Yoga', calories: 120 },
+            { name: 'Weight Lifting', calories: 220 },
+            // Add more exercise items here
+        ];
+
+        document.getElementById('date').innerText = new Date().toDateString();
+
+        var exerciseList = document.getElementById('exercise-list');
+        exerciseItems.forEach(function(exerciseItem) {
+            var tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${exerciseItem.name}</td>
+                <td>${exerciseItem.calories}</td>
+                <td><input type="number" class="minutes-input" value="30"></td>
+                <td><button class="add-exercise">Add</button></td>
+            `;
+            exerciseList.appendChild(tr);
+        });
+
+        
+        document.getElementById('add-exercise').className = 'add-button';
+
+        document.getElementById('add-exercise').className = 'add-button';
+
+        var addButtons = document.getElementsByClassName('add-button');
+        for (var i = 0; i < addButtons.length; i++) {
+            addButtons[i].addEventListener('click', function() {
+                var exerciseName = this.parentElement.parentElement.children[0].innerText || document.getElementById('exercise-name').value;
+                var exerciseCalories = this.parentElement.parentElement.children[1].innerText || document.getElementById('exercise-calories').value;
+                var exerciseMinutes = this.parentElement.parentElement.children[2].children[0].value || document.getElementById('exercise-minutes').value;
+
+                var data = {
+                    date: new Date().toDateString(),
+                    exercise: exerciseName,
+                    caloriesBurnt: exerciseCalories * (exerciseMinutes / 30)
+                };
+
+                fetch('http://localhost:5000/api/addexercise', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            });
+        }
+    </script>
+</body>
+</html>

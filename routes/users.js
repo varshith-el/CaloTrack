@@ -124,7 +124,12 @@ router.post(
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          // Set the JWT in a cookie
+          res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
+          // Set the username in a cookie
+          res.cookie('username', user.username, { httpOnly: true, secure: true, sameSite: 'strict' });
+          res.json({ msg: 'User reggistered successfully' });
+          //res.json({ token });
         }
       );
 
